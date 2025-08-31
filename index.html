@@ -1,0 +1,1040 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PDF Araçları - Ücretsiz PDF Birleştir, Ayır, Sıkıştır</title>
+    <meta name="description" content="PDF dosyalarınızı ücretsiz birleştirin, ayırın ve sıkıştırın. Hızlı, güvenli, çevrimiçi PDF araçları. Reklamsız premium seçenekler mevcut.">
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            color: #333;
+        }
+
+        .header {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 1rem 0;
+            box-shadow: 0 2px 20px rgba(0,0,0,0.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: bold;
+            background: linear-gradient(135deg, #ff416c, #ff4757);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .nav-menu {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        .nav-menu a {
+            text-decoration: none;
+            color: #333;
+            font-weight: 500;
+            cursor: pointer;
+        }
+
+        .nav-menu a:hover {
+            color: #667eea;
+        }
+
+        .premium-btn {
+            background: linear-gradient(135deg, #ffd700, #ffb347);
+            color: white;
+            padding: 0.5rem 1.5rem;
+            border: none;
+            border-radius: 25px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+
+        .premium-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(255, 215, 0, 0.4);
+        }
+
+        .hero {
+            text-align: center;
+            padding: 4rem 2rem 2rem;
+            color: white;
+        }
+
+        .hero h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            font-weight: 300;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            opacity: 0.9;
+            max-width: 600px;
+            margin: 0 auto 2rem;
+        }
+
+        .tools-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+        }
+
+        .tool-card {
+            background: white;
+            border-radius: 15px;
+            padding: 2rem;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .tool-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+        }
+
+        .tool-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+        }
+
+        .tool-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+
+        .tool-title {
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+            color: #333;
+        }
+
+        .tool-desc {
+            color: #666;
+            margin-bottom: 2rem;
+            line-height: 1.6;
+        }
+
+        .upload-area {
+            border: 3px dashed #ddd;
+            border-radius: 10px;
+            padding: 2rem;
+            text-align: center;
+            margin-bottom: 1rem;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .upload-area.dragover {
+            border-color: #667eea;
+            background: rgba(102, 126, 234, 0.1);
+        }
+
+        .upload-area input[type="file"] {
+            display: none;
+        }
+
+        .upload-text {
+            color: #999;
+            margin-bottom: 1rem;
+        }
+
+        .file-info {
+            background: #f8f9fa;
+            padding: 1rem;
+            border-radius: 8px;
+            margin: 1rem 0;
+            display: none;
+        }
+
+        .process-btn {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            border: none;
+            padding: 1rem 2rem;
+            border-radius: 50px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            width: 100%;
+            margin-bottom: 1rem;
+        }
+
+        .process-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+        }
+
+        .process-btn:disabled {
+            background: #ccc;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .download-btn {
+            background: linear-gradient(135deg, #00b894, #00cec9);
+            color: white;
+            border: none;
+            padding: 1rem 2rem;
+            border-radius: 50px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            width: 100%;
+            display: none;
+        }
+
+        .download-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 184, 148, 0.4);
+        }
+
+        .features {
+            max-width: 1200px;
+            margin: 4rem auto;
+            padding: 0 2rem;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .feature {
+            text-align: center;
+            padding: 2rem;
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 15px;
+            backdrop-filter: blur(10px);
+        }
+
+        .feature-icon {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .feature h3 {
+            margin-bottom: 1rem;
+            color: #333;
+        }
+
+        .feature p {
+            color: #666;
+            line-height: 1.6;
+        }
+
+        .pricing {
+            max-width: 800px;
+            margin: 4rem auto;
+            padding: 0 2rem;
+            text-align: center;
+        }
+
+        .pricing-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .pricing-card {
+            background: white;
+            border-radius: 15px;
+            padding: 2rem;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            position: relative;
+        }
+
+        .pricing-card.popular {
+            transform: scale(1.05);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.2);
+        }
+
+        .pricing-card.popular::before {
+            content: 'En Popüler';
+            position: absolute;
+            top: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: linear-gradient(135deg, #ffd700, #ffb347);
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: 600;
+        }
+
+        .price {
+            font-size: 3rem;
+            font-weight: bold;
+            color: #333;
+            margin: 1rem 0;
+        }
+
+        .price-period {
+            color: #666;
+            font-size: 1rem;
+        }
+
+        .features-list {
+            list-style: none;
+            text-align: left;
+            margin: 2rem 0;
+        }
+
+        .features-list li {
+            padding: 0.5rem 0;
+            color: #666;
+        }
+
+        .features-list li::before {
+            content: '✅';
+            margin-right: 0.5rem;
+        }
+
+        .footer {
+            background: rgba(0,0,0,0.8);
+            color: white;
+            text-align: center;
+            padding: 2rem;
+            margin-top: 4rem;
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 6px;
+            background: #e0e0e0;
+            border-radius: 3px;
+            margin: 1rem 0;
+            overflow: hidden;
+            display: none;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            width: 0%;
+            transition: width 0.3s ease;
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.8);
+        }
+
+        .modal-content {
+            background-color: white;
+            margin: 5% auto;
+            padding: 2rem;
+            border-radius: 15px;
+            width: 90%;
+            max-width: 500px;
+            position: relative;
+            text-align: center;
+        }
+
+        .close {
+            position: absolute;
+            right: 1rem;
+            top: 1rem;
+            font-size: 2rem;
+            cursor: pointer;
+            color: #999;
+        }
+
+        .close:hover {
+            color: #333;
+        }
+
+        .ad-space {
+            background: #f8f9fa;
+            border: 2px dashed #ddd;
+            text-align: center;
+            padding: 2rem;
+            margin: 2rem 0;
+            border-radius: 10px;
+            color: #999;
+        }
+
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2rem;
+            }
+            
+            .nav-menu {
+                display: none;
+            }
+            
+            .tools-container {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf-lib/1.17.1/pdf-lib.min.js"></script>
+</head>
+<body>
+    <header class="header">
+        <nav class="nav-container">
+            <div class="logo">📄 PDF Araçları</div>
+            <ul class="nav-menu">
+                <li><a onclick="scrollToSection('tools')">Araçlar</a></li>
+                <li><a onclick="scrollToSection('features')">Özellikler</a></li>
+                <li><a onclick="scrollToSection('pricing')">Fiyatlar</a></li>
+                <li><a onclick="showContact()">İletişim</a></li>
+            </ul>
+            <button onclick="showPremiumModal()" class="premium-btn">💎 Premium</button>
+        </nav>
+    </header>
+
+    <section class="hero">
+        <h1>🚀 PDF Araçlarınızın Merkezi</h1>
+        <p>PDF dosyalarınızı kolayca birleştirin, ayırın, sıkıştırın ve dönüştürün. Hızlı, güvenli ve tamamen ücretsiz!</p>
+    </section>
+
+    <section id="tools" class="tools-container">
+        <!-- PDF Birleştirici -->
+        <div class="tool-card">
+            <div class="tool-icon">🔗</div>
+            <h2 class="tool-title">PDF Birleştirici</h2>
+            <p class="tool-desc">Birden fazla PDF dosyasını tek bir dosyada birleştirin.</p>
+            
+            <div class="upload-area" onclick="document.getElementById('merge-files').click()">
+                <input type="file" id="merge-files" multiple accept=".pdf">
+                <div class="upload-text">
+                    📁 PDF dosyalarını seçin veya sürükleyip bırakın<br>
+                    <small>Birden fazla dosya seçebilirsiniz</small>
+                </div>
+            </div>
+            
+            <div class="file-info" id="merge-info"></div>
+            <div class="progress-bar" id="merge-progress">
+                <div class="progress-fill"></div>
+            </div>
+            
+            <button class="process-btn" id="merge-btn" disabled onclick="mergePDFs()">
+                🔗 PDF'leri Birleştir
+            </button>
+            <button class="download-btn" id="merge-download">
+                ⬇️ Birleştirilmiş PDF'i İndir
+            </button>
+        </div>
+
+        <!-- PDF Ayırıcı -->
+        <div class="tool-card">
+            <div class="tool-icon">✂️</div>
+            <h2 class="tool-title">PDF Ayırıcı</h2>
+            <p class="tool-desc">PDF dosyasını sayfa sayfa ayırın veya belirli sayfaları çıkarın.</p>
+            
+            <div class="upload-area" onclick="document.getElementById('split-file').click()">
+                <input type="file" id="split-file" accept=".pdf">
+                <div class="upload-text">
+                    📄 PDF dosyasını seçin veya sürükleyip bırakın<br>
+                    <small>Tek PDF dosyası</small>
+                </div>
+            </div>
+            
+            <div class="file-info" id="split-info"></div>
+            <div class="progress-bar" id="split-progress">
+                <div class="progress-fill"></div>
+            </div>
+            
+            <button class="process-btn" id="split-btn" disabled onclick="splitPDF()">
+                ✂️ PDF'i Ayır
+            </button>
+            <button class="download-btn" id="split-download">
+                ⬇️ Ayrılmış Sayfaları İndir
+            </button>
+        </div>
+
+        <!-- PDF Sıkıştırıcı -->
+        <div class="tool-card">
+            <div class="tool-icon">🗜️</div>
+            <h2 class="tool-title">PDF Sıkıştırıcı</h2>
+            <p class="tool-desc">PDF dosya boyutunu küçültün, kaliteyi koruyarak optimize edin.</p>
+            
+            <div class="upload-area" onclick="document.getElementById('compress-file').click()">
+                <input type="file" id="compress-file" accept=".pdf">
+                <div class="upload-text">
+                    🗜️ PDF dosyasını seçin veya sürükleyip bırakın<br>
+                    <small>Dosya boyutu %50-80 küçülecek</small>
+                </div>
+            </div>
+            
+            <div class="file-info" id="compress-info"></div>
+            <div class="progress-bar" id="compress-progress">
+                <div class="progress-fill"></div>
+            </div>
+            
+            <button class="process-btn" id="compress-btn" disabled onclick="compressPDF()">
+                🗜️ PDF'i Sıkıştır
+            </button>
+            <button class="download-btn" id="compress-download">
+                ⬇️ Sıkıştırılmış PDF'i İndir
+            </button>
+        </div>
+
+        <!-- PDF to Word -->
+        <div class="tool-card">
+            <div class="tool-icon">📝</div>
+            <h2 class="tool-title">PDF → Word</h2>
+            <p class="tool-desc">PDF dosyalarını Word belgesine dönüştürün.</p>
+            
+            <div class="upload-area" onclick="document.getElementById('pdf-to-word').click()">
+                <input type="file" id="pdf-to-word" accept=".pdf">
+                <div class="upload-text">
+                    📝 PDF dosyasını seçin<br>
+                    <small>Word formatına dönüştürülecek</small>
+                </div>
+            </div>
+            
+            <div class="file-info" id="pdf-word-info"></div>
+            <div class="ad-space">
+                <p>🎯 Reklam Alanı<br>Premium ile reklamsız deneyim!</p>
+            </div>
+            
+            <button class="process-btn" id="pdf-word-btn" disabled onclick="convertPDFtoWord()">
+                📝 Word'e Dönüştür
+            </button>
+            <button class="download-btn" id="pdf-word-download">
+                ⬇️ Word Dosyasını İndir
+            </button>
+        </div>
+
+        <!-- Word to PDF -->
+        <div class="tool-card">
+            <div class="tool-icon">📄</div>
+            <h2 class="tool-title">Word → PDF</h2>
+            <p class="tool-desc">Word belgelerini PDF formatına dönüştürün.</p>
+            
+            <div class="upload-area" onclick="document.getElementById('word-to-pdf').click()">
+                <input type="file" id="word-to-pdf" accept=".doc,.docx">
+                <div class="upload-text">
+                    📄 Word dosyasını seçin<br>
+                    <small>PDF formatına dönüştürülecek</small>
+                </div>
+            </div>
+            
+            <div class="file-info" id="word-pdf-info"></div>
+            
+            <button class="process-btn" id="word-pdf-btn" disabled onclick="convertWordtoPDF()">
+                📄 PDF'e Dönüştür
+            </button>
+            <button class="download-btn" id="word-pdf-download">
+                ⬇️ PDF Dosyasını İndir
+            </button>
+        </div>
+
+        <!-- JPG to PDF -->
+        <div class="tool-card">
+            <div class="tool-icon">🖼️</div>
+            <h2 class="tool-title">Resim → PDF</h2>
+            <p class="tool-desc">JPG, PNG resimlerini PDF dosyasına dönüştürün.</p>
+            
+            <div class="upload-area" onclick="document.getElementById('img-to-pdf').click()">
+                <input type="file" id="img-to-pdf" multiple accept=".jpg,.jpeg,.png">
+                <div class="upload-text">
+                    🖼️ Resim dosyalarını seçin<br>
+                    <small>JPG, PNG desteklenir</small>
+                </div>
+            </div>
+            
+            <div class="file-info" id="img-pdf-info"></div>
+            
+            <button class="process-btn" id="img-pdf-btn" disabled onclick="convertImagestoPDF()">
+                🖼️ PDF Oluştur
+            </button>
+            <button class="download-btn" id="img-pdf-download">
+                ⬇️ PDF'i İndir
+            </button>
+        </div>
+    </section>
+
+    <section id="features" class="features">
+        <div class="hero" style="padding: 2rem 0;">
+            <h2>✨ Neden PDF Araçları?</h2>
+        </div>
+        
+        <div class="features-grid">
+            <div class="feature">
+                <div class="feature-icon">⚡</div>
+                <h3>Hızlı İşlem</h3>
+                <p>Dosyalarınızı saniyeler içinde işleyin. Sunucu tabanlı hızlı işleme teknolojisi.</p>
+            </div>
+            <div class="feature">
+                <div class="feature-icon">🔒</div>
+                <h3>Güvenli & Gizli</h3>
+                <p>Dosyalarınız sunucularımızda saklanmaz. İşlem sonrası otomatik silinir.</p>
+            </div>
+            <div class="feature">
+                <div class="feature-icon">🆓</div>
+                <h3>Tamamen Ücretsiz</h3>
+                <p>Temel özellikler tamamen ücretsiz. Kayıt olmadan kullanabilirsiniz.</p>
+            </div>
+            <div class="feature">
+                <div class="feature-icon">📱</div>
+                <h3>Her Cihazda</h3>
+                <p>Masaüstü, tablet, telefon - tüm cihazlarda mükemmel çalışır.</p>
+            </div>
+            <div class="feature">
+                <div class="feature-icon">🌍</div>
+                <h3>Çevrimiçi Araç</h3>
+                <p>Program indirmenize gerek yok. Tarayıcınızdan kullanın.</p>
+            </div>
+            <div class="feature">
+                <div class="feature-icon">💎</div>
+                <h3>Premium Özellikler</h3>
+                <p>Sınırsız dosya boyutu, toplu işlem, reklamsız deneyim.</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="pricing" class="pricing">
+        <div class="hero" style="padding: 2rem 0;">
+            <h2>💰 Fiyat Planları</h2>
+            <p style="color: white;">İhtiyacınıza uygun planı seçin</p>
+        </div>
+        
+        <div class="pricing-cards">
+            <div class="pricing-card">
+                <h3>🆓 Ücretsiz</h3>
+                <div class="price">₺0<span class="price-period">/ay</span></div>
+                <ul class="features-list">
+                    <li>5MB'a kadar dosya</li>
+                    <li>Günde 10 işlem</li>
+                    <li>Temel PDF araçları</li>
+                    <li>Reklam destekli</li>
+                    <li>Community destek</li>
+                </ul>
+                <button class="process-btn" onclick="startFreeTrial()">Şimdi Kullan</button>
+            </div>
+            
+            <div class="pricing-card popular">
+                <h3>💎 Premium</h3>
+                <div class="price">₺29<span class="price-period">/ay</span></div>
+                <ul class="features-list">
+                    <li>Sınırsız dosya boyutu</li>
+                    <li>Sınırsız işlem</li>
+                    <li>Tüm PDF araçları</li>
+                    <li>Reklamsız deneyim</li>
+                    <li>Öncelikli işleme</li>
+                    <li>Toplu işlem</li>
+                    <li>7/24 destek</li>
+                    <li>API erişimi</li>
+                </ul>
+                <button class="process-btn" style="background: linear-gradient(135deg, #ffd700, #ffb347);" onclick="showPremiumModal()">Premium Ol</button>
+            </div>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <p>&copy; 2025 PDF Araçları. Tüm hakları saklıdır.</p>
+        <p>Gizlilik Politikası | Kullanım Şartları | İletişim</p>
+        <p>📧 info@pdfaraclari.com | 📞 +90 212 123 45 67</p>
+    </footer>
+
+    <!-- Premium Modal -->
+    <div id="premiumModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closePremiumModal()">&times;</span>
+            <h2>💎 Premium'a Yükselt</h2>
+            <p>Premium özelliklerin keyfini çıkarın!</p>
+            <div style="margin: 2rem 0;">
+                <div style="font-size: 2rem; margin-bottom: 1rem;">₺29/ay</div>
+                <ul style="text-align: left; margin: 1rem 0;">
+                    <li>✅ Sınırsız dosya boyutu</li>
+                    <li>✅ Reklamsız deneyim</li>
+                    <li>✅ Öncelikli işleme</li>
+                    <li>✅ 7/24 destek</li>
+                </ul>
+            </div>
+            <button class="process-btn" onclick="subscribeToPremium()">💳 Şimdi Abone Ol</button>
+            <p style="margin-top: 1rem; font-size: 0.9rem; color: #666;">
+                7 gün ücretsiz deneme. İstediğin zaman iptal et.
+            </p>
+        </div>
+    </div>
+
+    <script>
+        // Global değişkenler
+        let mergedPDF = null;
+        let splitPages = [];
+        let compressedPDF = null;
+
+        // Dosya seçme event listeners
+        document.getElementById('merge-files').addEventListener('change', handleMergeFiles);
+        document.getElementById('split-file').addEventListener('change', handleSplitFile);
+        document.getElementById('compress-file').addEventListener('change', handleCompressFile);
+        document.getElementById('pdf-to-word').addEventListener('change', handlePDFtoWord);
+        document.getElementById('word-to-pdf').addEventListener('change', handleWordtoPDF);
+        document.getElementById('img-to-pdf').addEventListener('change', handleImagestoPDF);
+
+        // Drag & Drop özelliği
+        setupDragAndDrop();
+
+        function setupDragAndDrop() {
+            const uploadAreas = document.querySelectorAll('.upload-area');
+            
+            uploadAreas.forEach(area => {
+                area.addEventListener('dragover', (e) => {
+                    e.preventDefault();
+                    area.classList.add('dragover');
+                });
+                
+                area.addEventListener('dragleave', () => {
+                    area.classList.remove('dragover');
+                });
+                
+                area.addEventListener('drop', (e) => {
+                    e.preventDefault();
+                    area.classList.remove('dragover');
+                    
+                    const files = Array.from(e.dataTransfer.files);
+                    const input = area.querySelector('input[type="file"]');
+                    
+                    if (input.multiple) {
+                        handleMultipleFiles(input, files);
+                    } else {
+                        if (files.length > 0) {
+                            handleSingleFile(input, files[0]);
+                        }
+                    }
+                });
+            });
+        }
+
+        function handleMultipleFiles(input, files) {
+            const dt = new DataTransfer();
+            files.forEach(file => dt.items.add(file));
+            input.files = dt.files;
+            input.dispatchEvent(new Event('change'));
+        }
+
+        function handleSingleFile(input, file) {
+            const dt = new DataTransfer();
+            dt.items.add(file);
+            input.files = dt.files;
+            input.dispatchEvent(new Event('change'));
+        }
+
+        function handleMergeFiles(e) {
+            const files = Array.from(e.target.files);
+            const info = document.getElementById('merge-info');
+            const btn = document.getElementById('merge-btn');
+            
+            if (files.length > 1) {
+                info.style.display = 'block';
+                info.innerHTML = `
+                    <strong>📁 Seçilen Dosyalar:</strong><br>
+                    ${files.map(f => `• ${f.name} (${(f.size/1024/1024).toFixed(2)} MB)`).join('<br>')}
+                    <br><br><strong>Toplam:</strong> ${files.length} dosya, ${(files.reduce((acc, f) => acc + f.size, 0)/1024/1024).toFixed(2)} MB
+                `;
+                btn.disabled = false;
+            } else {
+                info.style.display = 'none';
+                btn.disabled = true;
+            }
+        }
+
+        function handleSplitFile(e) {
+            const file = e.target.files[0];
+            const info = document.getElementById('split-info');
+            const btn = document.getElementById('split-btn');
+            
+            if (file && file.type === 'application/pdf') {
+                info.style.display = 'block';
+                info.innerHTML = `
+                    <strong>📄 Seçilen Dosya:</strong><br>
+                    • ${file.name}<br>
+                    • Boyut: ${(file.size/1024/1024).toFixed(2)} MB<br>
+                    • Tip: PDF Belgesi
+                `;
+                btn.disabled = false;
+            } else {
+                info.style.display = 'none';
+                btn.disabled = true;
+            }
+        }
+
+        function handleCompressFile(e) {
+            const file = e.target.files[0];
+            const info = document.getElementById('compress-info');
+            const btn = document.getElementById('compress-btn');
+            
+            if (file && file.type === 'application/pdf') {
+                info.style.display = 'block';
+                info.innerHTML = `
+                    <strong>🗜️ Sıkıştırılacak Dosya:</strong><br>
+                    • ${file.name}<br>
+                    • Mevcut Boyut: ${(file.size/1024/1024).toFixed(2)} MB<br>
+                    • Tahmini Yeni Boyut: ${(file.size/1024/1024 * 0.3).toFixed(2)} MB (%70 küçülme)
+                `;
+                btn.disabled = false;
+            }
+        }
+
+        function handlePDFtoWord(e) {
+            const file = e.target.files[0];
+            const info = document.getElementById('pdf-word-info');
+            const btn = document.getElementById('pdf-word-btn');
+            
+            if (file && file.type === 'application/pdf') {
+                info.style.display = 'block';
+                info.innerHTML = `
+                    <strong>📝 Word'e Dönüştürülecek:</strong><br>
+                    • ${file.name}<br>
+                    • ${(file.size/1024/1024).toFixed(2)} MB
+                `;
+                btn.disabled = false;
+            }
+        }
+
+        function handleWordtoPDF(e) {
+            const file = e.target.files[0];
+            const info = document.getElementById('word-pdf-info');
+            const btn = document.getElementById('word-pdf-btn');
+            
+            if (file) {
+                info.style.display = 'block';
+                info.innerHTML = `
+                    <strong>📄 PDF'e Dönüştürülecek:</strong><br>
+                    • ${file.name}<br>
+                    • ${(file.size/1024/1024).toFixed(2)} MB
+                `;
+                btn.disabled = false;
+            }
+        }
+
+        function handleImagestoPDF(e) {
+            const files = Array.from(e.target.files);
+            const info = document.getElementById('img-pdf-info');
+            const btn = document.getElementById('img-pdf-btn');
+            
+            if (files.length > 0) {
+                info.style.display = 'block';
+                info.innerHTML = `
+                    <strong>🖼️ Seçilen Resimler:</strong><br>
+                    ${files.map(f => `• ${f.name}`).join('<br>')}
+                    <br><br><strong>Toplam:</strong> ${files.length} resim
+                `;
+                btn.disabled = false;
+            }
+        }
+
+        // Ana fonksiyonlar
+        async function mergePDFs() {
+            const files = Array.from(document.getElementById('merge-files').files);
+            const btn = document.getElementById('merge-btn');
+            const downloadBtn = document.getElementById('merge-download');
+            const progress = document.getElementById('merge-progress');
+            const progressFill = progress.querySelector('.progress-fill');
+            
+            btn.disabled = true;
+            btn.textContent = '⏳ Birleştiriliyor...';
+            progress.style.display = 'block';
+            
+            try {
+                // Demo progress animation
+                for (let i = 0; i <= 100; i += 10) {
+                    progressFill.style.width = i + '%';
+                    await new Promise(resolve => setTimeout(resolve, 100));
+                }
+                
+                // Demo completed
+                btn.textContent = '✅ Tamamlandı!';
+                downloadBtn.style.display = 'block';
+                progress.style.display = 'none';
+                
+                downloadBtn.onclick = () => {
+                    alert('🚀 Demo sürümünde gerçek indirme yapılamaz.\n\nGerçek sitede PDF-lib kütüphanesi ile birleştirme işlemi yapılacak.');
+                };
+                
+            } catch (error) {
+                btn.textContent = '❌ Hata Oluştu';
+                btn.disabled = false;
+            }
+        }
+
+        async function splitPDF() {
+            const file = document.getElementById('split-file').files[0];
+            const btn = document.getElementById('split-btn');
+            const downloadBtn = document.getElementById('split-download');
+            const progress = document.getElementById('split-progress');
+            const progressFill = progress.querySelector('.progress-fill');
+            
+            btn.disabled = true;
+            btn.textContent = '⏳ Ayrılıyor...';
+            progress.style.display = 'block';
+            
+            try {
+                for (let i = 0; i <= 100; i += 15) {
+                    progressFill.style.width = i + '%';
+                    await new Promise(resolve => setTimeout(resolve, 80));
+                }
+                
+                btn.textContent = '✅ Tamamlandı!';
+                downloadBtn.style.display = 'block';
+                progress.style.display = 'none';
+                
+                downloadBtn.onclick = () => {
+                    alert('🚀 Demo sürümünde gerçek ayırma yapılamaz.\n\nGerçek sitede her sayfa ayrı PDF olarak indirilecek.');
+                };
+                
+            } catch (error) {
+                btn.textContent = '❌ Hata Oluştu';
+                btn.disabled = false;
+            }
+        }
+
+        async function compressPDF() {
+            const file = document.getElementById('compress-file').files[0];
+            const btn = document.getElementById('compress-btn');
+            const downloadBtn = document.getElementById('compress-download');
+            const progress = document.getElementById('compress-progress');
+            const progressFill = progress.querySelector('.progress-fill');
+            
+            btn.disabled = true;
+            btn.textContent = '⏳ Sıkıştırılıyor...';
+            progress.style.display = 'block';
+            
+            try {
+                for (let i = 0; i <= 100; i += 12) {
+                    progressFill.style.width = i + '%';
+                    await new Promise(resolve => setTimeout(resolve, 90));
+                }
+                
+                btn.textContent = '✅ Tamamlandı!';
+                downloadBtn.style.display = 'block';
+                progress.style.display = 'none';
+                
+                downloadBtn.onclick = () => {
+                    alert('🚀 Demo sürümünde gerçek sıkıştırma yapılamaz.\n\nGerçek sitede dosya boyutu %60-80 küçültülecek.');
+                };
+                
+            } catch (error) {
+                btn.textContent = '❌ Hata Oluştu';
+                btn.disabled = false;
+            }
+        }
+
+        async function convertPDFtoWord() {
+            simulateConversion('pdf-word-btn', 'pdf-word-download', '📝 Word\'e dönüştürülüyor...', '✅ Word hazır!', 'Word dosyası olarak indirilecek.');
+        }
+
+        async function convertWordtoPDF() {
+            simulateConversion('word-pdf-btn', 'word-pdf-download', '📄 PDF\'e dönüştürülüyor...', '✅ PDF hazır!', 'PDF dosyası olarak indirilecek.');
+        }
+
+        async function convertImagestoPDF() {
+            simulateConversion('img-pdf-btn', 'img-pdf-download', '🖼️ PDF oluşturuluyor...', '✅ PDF hazır!', 'Resimlerden PDF oluşturuldu.');
+        }
+
+        async function simulateConversion(btnId, downloadBtnId, processingText, completedText, downloadMessage) {
+            const btn = document.getElementById(btnId);
+            const downloadBtn = document.getElementById(downloadBtnId);
+            
+            btn.disabled = true;
+            btn.textContent = processingText;
+            
+            // Simulated processing
+            await new Promise(resolve => setTimeout(resolve, 2000));
+            
+            btn.textContent = completedText;
+            downloadBtn.style.display = 'block';
+            
+            downloadBtn.onclick = () => {
+                alert(`🚀 Demo sürümünde gerçek indirme yapılamaz.\n\n${downloadMessage}`);
+            };
+        }
+
+        function showPremiumModal() {
+            document.getElementById('premiumModal').style.display = 'block';
+        }
+
+        function closePremiumModal() {
+            document.getElementById('premiumModal').style.display = 'none';
+        }
+
+        function subscribeToPremium() {
+            alert('🚀 Premium abonelik sayfasına yönlendiriliyorsunuz!\n\nGerçek sitede Stripe/PayPal entegrasyonu olacak.\n\nDemo sürümünde ödeme sistemi aktif değil.');
+        }
+
+        function startFreeTrial() {
+            alert('✨ Ücretsiz denemeye başlıyorsunuz!\n\nTüm araçları şimdi kullanabilirsiniz.');
+        }
+
+        function scrollToSection(sectionId) {
+            const element = document.getElementById(sectionId);
+            if (element) {
+                element.scrollIntoView({ 
+                    behavior: 'smooth',
+                    block: 'start'
+                });
+            }
+        }
+
+        function showContact() {
+            alert('📧 İletişim Bilgileri:\n\nE-mail: info@pdfaraclari.com\nTelefon: +90 212 123 45 67\n\nDemo versiyonunda gerçek iletişim formu bulunmamaktadır.');
+        }
+
+        // Modal dışına tıklayınca kapanma
+        window.onclick = function(event) {
+            const modal = document.getElementById('premiumModal');
+            if (event.target == modal) {
+                modal.style.display = 'none';
+            }
+        }
+
+        // Sayfa yüklendiğinde
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('PDF Araçları sitesi yüklendi!');
+        });
+    </script>
+</body>
+</html>
